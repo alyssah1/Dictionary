@@ -1,0 +1,28 @@
+form.signup,
+form.login {
+  margin-top: 50px;
+}
+
+body {
+  background-image: url(/Users/jinchoo/Desktop/Projects/Project-2/snowman.jpg);
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+
+body {
+  background-image: url(/Users/jinchoo/Desktop/Projects/Project-2/animated-christmas-lights.gif);
+  background-attachment: fixed;
+  background-size: 50%;
+}
+
+.jumbotron {
+  background: transparent;
+}
+
+.display-4 {
+  color: red
+}
+
+.welcome{
+  color: blue
+}
