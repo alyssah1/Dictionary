@@ -25,9 +25,20 @@ router.get('/signup', (req, res) => {
     res.render('signup');
 });
 
-router.post('/api/login', passport.authenticate("local"), (req, res) => {
-    // noinspection JSUnresolvedVariable
-    res.json(req.user);
+router.post("/api/login", function(req, res, next) {
+    passport.authenticate("local", (err, user, info) => {
+        if(err) return res.status(500).json(err);
+        if(info) return res.status(401).json(info);
+        // noinspection JSUnresolvedFunction
+        req.logIn(user, err => {
+            if(err) return res.status(500).json(err);
+            return next();
+        });
+    })(req, res, next);
+});
+
+router.post('/api/login', (req, res) => {
+    res.end();
 });
 
 router.post('/api/signup', (req, res) => {
@@ -36,9 +47,11 @@ router.post('/api/signup', (req, res) => {
         username: req.body.username,
         password: req.body.password
     }).then(() => {
+        //login the user if user is inserted
         res.redirect(307, "/api/login");
     }).catch(err => {
-        res.status(401).json(err);
+        let message = err.errors[0].message;
+        res.status(401).json({message: message});
     });
 });
 
