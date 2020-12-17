@@ -1,7 +1,9 @@
 const express = require('express');
 const path = require('path');
 const db = require(path.join(__dirname, './models'));
-var exphbs = require("express-handlebars");
+const exphbs = require("express-handlebars");
+const passport = require("./config/passport");
+const session = require("express-session");
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -14,7 +16,13 @@ app.use(express.json());
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
+app.use(session({ secret: "asdasd", resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(require('./routes/authentication'));
+app.use(require('./routes/apiRoutes'));
+app.use(require('./routes/pageRoute'));
 
 //sync models before active server
 db.sequelize.sync().then(() => {
