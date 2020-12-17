@@ -14,7 +14,11 @@ passport.use(new LocalStrategy({},
             // If there's no user with the given email
             if (!dbUser) {
                 return done(null, false, {
+<<<<<<< HEAD
                     message: "Incorrect email."
+=======
+                    message: "User not found."
+>>>>>>> 88acac629d459738160df67225ff323486163172
                 });
             }
             // If there is a user with the given email, but the password the user gives us is incorrect

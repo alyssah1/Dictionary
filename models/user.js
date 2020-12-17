@@ -11,9 +11,15 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
             unique: true,
             validate: {
+<<<<<<< HEAD
                 len: [6,160],
                 notEmpty: true,
                 isAlphanumeric: true
+=======
+                len: {args: [6,160], msg:"username length must be between 6 and 160 characters."},
+                notEmpty: true,
+                isAlphanumeric: {msg:"username must be alphanumerical."}
+>>>>>>> 88acac629d459738160df67225ff323486163172
             }
         },
         // The password cannot be null
@@ -21,7 +27,11 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
+<<<<<<< HEAD
                 len: [8,160]
+=======
+                len: {args: [8,160], msg:"password length must be between 8 and 160 characters."},
+>>>>>>> 88acac629d459738160df67225ff323486163172
             }
         }
     });
