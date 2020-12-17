@@ -37,6 +37,12 @@ router.post("/api/login", function(req, res, next) {
     })(req, res, next);
 });
 
+router.post('/api/logout', (req, res) => {
+    // noinspection JSUnresolvedFunction
+    req.logout();
+    res.redirect('/');
+})
+
 router.post('/api/login', (req, res) => {
     res.end();
 });
