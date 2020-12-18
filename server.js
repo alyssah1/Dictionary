@@ -17,7 +17,7 @@ app.use(express.static("public"));
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-app.use(session({ secret: "asdasd", resave: true, saveUninitialized: true }));
+app.use(session({ secret: "someactuallegitsecretstuff", resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
