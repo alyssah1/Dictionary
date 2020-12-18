@@ -1,0 +1,30 @@
+form.signup,
+form.login {
+  margin-top: 50px;
+}
+
+/* body {
+  background-image: url(/Users/jinchoo/Desktop/Projects/Project-2/snowman.jpg);
+  background-position: right bottom;
+  background-size: 50%;
+} */
+
+body {
+  background-image: url(/assets/img/ac030c_b4ab633f467c41078a0a97b1f2ed2682_mv2.gif),url(/assets/img/snowman.jpg);
+  background-position: center top;
+  background-repeat: repeat-x;
+  background-size: 30%, 100%;
+}
+
+.jumbotron {
+  background: transparent;
+}
+
+
+.display-4 {
+  color: red
+}
+
+.welcome{
+  color: blue
+}
