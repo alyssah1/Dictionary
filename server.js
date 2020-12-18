@@ -5,12 +5,13 @@ const exphbs = require("express-handlebars");
 const passport = require("./config/passport");
 const session = require("express-session");
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8000;
 const app = express();
 
 //parse parameters
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
+app.use(express.static("public"));
 
 //config express handlebars
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
