@@ -6,15 +6,11 @@ const router = require('express').Router();
  * check if user is logged in unless they are visiting the login page or the sign up page.
  */
 router.use('/', (req, res, next) => {
-<<<<<<< HEAD
-    if(req.user || req.url.toLowerCase() === "/login" || req.url.toLowerCase() === "/signup") {
-=======
     if(req.user ||
         req.url.toLowerCase() === "/login" ||
         req.url.toLowerCase() === "/signup" ||
         req.url.toLowerCase() === "/api/login" ||
         req.url.toLowerCase() === "/api/signup") {
->>>>>>> 88acac629d459738160df67225ff323486163172
         return next();
     } else {
         res.redirect('/login');
@@ -29,8 +25,6 @@ router.get('/signup', (req, res) => {
     res.render('signup');
 });
 
-<<<<<<< HEAD
-=======
 router.post("/api/login", function(req, res, next) {
     passport.authenticate("local", (err, user, info) => {
         if(err) return res.status(500).json(err);
@@ -66,6 +60,5 @@ router.post('/api/signup', (req, res) => {
         res.status(401).json({message: message});
     });
 });
->>>>>>> 88acac629d459738160df67225ff323486163172
 
 module.exports = router;

@@ -1,9 +1,5 @@
 const db = require("../models");
 const router = require('express').Router();
-<<<<<<< HEAD
-
-
-=======
 const axios = require('axios');
 
 const API_KEY = process.env["API-KEY"];
@@ -34,6 +30,5 @@ router.get('/api/add/:word', (req, res) => {
 router.get('/api/remove/:word', (req, res) => {
 
 });
->>>>>>> 88acac629d459738160df67225ff323486163172
 
 module.exports = router;
