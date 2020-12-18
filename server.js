@@ -17,7 +17,7 @@ app.set("view engine", "handlebars");
 app.use(require('./routes/authentication'));
 
 //sync models before active server
-db.sequelize.sync().then(() => {
+db.sequelize.sync({force: true}).then(() => {
     //bind server.
     app.listen(PORT, () => {
         console.log("Server is now listening on port: " + PORT);
