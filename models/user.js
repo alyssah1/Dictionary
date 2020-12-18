@@ -26,6 +26,11 @@ module.exports = function(sequelize, DataTypes) {
         }
     });
 
+    User.associate = function(models) {
+        User.hasMany(models.Word, {
+            onDelete: "cascade"
+        });
+    }
     /**
      * check unhashed password against user's hashed password
      */
