@@ -27,10 +27,9 @@ module.exports = function(sequelize, DataTypes) {
     });
 
     User.associate = function(models) {
-        User.hasMany(models.Word, {
-            onDelete: "cascade"
-        });
-    }
+        User.belongsToMany(models.Word, {through: 'UserWords'});
+    };
+
     /**
      * check unhashed password against user's hashed password
      */
@@ -45,5 +44,6 @@ module.exports = function(sequelize, DataTypes) {
     User.addHook("beforeCreate", function(user) {
         user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10));
     });
+
     return User;
 };

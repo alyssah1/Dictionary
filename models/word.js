@@ -11,15 +11,8 @@ const Word = sequelize.define("Word", {
 
 Word.associate = function(models) {
 
-    Word.belongsTo(models.User, {
-        foreignKey: {
-            allowNull: false
-        }
-    });
+    Word.belongsToMany(models.User, {through: 'UserWords'});
     Word.hasMany(models.Definition, {
-        onDelete: "cascade"
-    });
-    Word.hasMany(models.DefinitionCache, {
         onDelete: "cascade"
     });
 };
