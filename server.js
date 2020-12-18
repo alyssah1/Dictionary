@@ -5,7 +5,7 @@ const exphbs = require("express-handlebars");
 const passport = require("./config/passport");
 const session = require("express-session");
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8080;
 const app = express();
 
 //parse parameters
