@@ -26,7 +26,7 @@ app.use(require('./routes/apiRoutes'));
 app.use(require('./routes/pageRoute'));
 
 //sync models before active server
-db.sequelize.sync().then(() => {
+db.sequelize.sync({force: true}).then(() => {
     //bind server.
     app.listen(PORT, () => {
         console.log("Server is now listening on port: " + PORT);
