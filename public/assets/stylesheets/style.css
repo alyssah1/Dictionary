@@ -9,12 +9,25 @@ form.login {
   background-size: 50%;
 } */
 
-body {
+body,html {
   background-image: url(/assets/img/ac030c_b4ab633f467c41078a0a97b1f2ed2682_mv2.gif),url(/assets/img/snowman.jpg);
   background-position: center top;
-  background-repeat: repeat-x;
-  background-size: 30%, 100%;
+  background-repeat: repeat-x, no-repeat;
+  background-size: 30%, cover;
+  height: 100%;
+  margin-bottom: 50px;
 }
+
+/* .bg {
+  background-image: url(/assets/img/ac030c_b4ab633f467c41078a0a97b1f2ed2682_mv2.gif),url(/assets/img/snowman.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top:0px, 50px
+  height: 100%;
+  
+
+} */
 
 .jumbotron {
   background: transparent;
@@ -26,4 +39,14 @@ body {
 
 .welcome{
   color: blue
+}
+
+.sf-snow-flake {
+  position: fixed;
+  top: -20px;
+  z-index: 99999;
+}
+
+.sf-snow-anim {
+  top: 110%
 }
