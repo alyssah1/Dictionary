@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
     const Definition = sequelize.define("Definition", {
-        definition: DataTypes.TEXT,
+        data: DataTypes.JSON,
     });
     Definition.associate = function(models) {
         Definition.belongsTo(models.Word, {
@@ -9,7 +9,6 @@ module.exports = function(sequelize, DataTypes) {
             }
         });
     };
-
 
     return Definition;
 };
