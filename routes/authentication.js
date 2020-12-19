@@ -11,6 +11,11 @@ router.use('/', (req, res, next) => {
         req.url.toLowerCase() === "/signup" ||
         req.url.toLowerCase() === "/api/login" ||
         req.url.toLowerCase() === "/api/signup") {
+
+        if(req.url.toLowerCase() === '/') {
+            return res.redirect('/dashboard');
+        }
+
         return next();
     } else {
         res.redirect('/login');
@@ -41,7 +46,7 @@ router.post('/api/logout', (req, res) => {
     // noinspection JSUnresolvedFunction
     req.logout();
     res.redirect('/');
-})
+});
 
 router.post('/api/login', (req, res) => {
     res.end();
