@@ -4,22 +4,34 @@ const axios = require('axios');
 
 const API_KEY = process.env["API-KEY"];
 
-router.get('/api/search/:word', (req, res) => {
-    // noinspection JSUnresolvedVariable
+
+router.get('/api/search/:word', async (req, res) => {
+    const wordName = req.params.word;
+
+    //check if word has already been searched before
+    let word = await db.Word.findOne({where: {name: wordName}, include:db.Definition});
+
+    //if word is found, return it as json
+    if(word) {
+        return res.json(word);
+    }
+
     const options = {
         method: 'GET',
-        url: 'https://wordsapiv1.p.rapidapi.com/words/' + req.params.word,
+        url: 'https://wordsapiv1.p.rapidapi.com/words/' + wordName,
         headers: {
             'x-rapidapi-key': API_KEY,
             'x-rapidapi-host': 'wordsapiv1.p.rapidapi.com'
         }
     };
 
-    axios.request(options).then(function (response) {
-        res.json(response.data);
+    axios.request(options).then(async function (response) {
+        //stringify all definitions for this word.
+        word = await db.Word.create({name: wordName, Definitions: response.data.results.map(el => {return {data: el};})}, {include: db.Definition});
+        return res.json(word);
     }).catch(function (error) {
         console.error(error);
-        res.status(500).json(error);
+        return res.status(500).json(error);
     });
 });
 
