@@ -28,13 +28,12 @@ $('#logout').click(function() {
     $.ajax({
         url: '/api/logout',
         type:"POST",
-        //data: {action:action},
     }).then(function() {
       console.log("LOGOUT SUCESS");
       window.location.replace('/');
     })
   })
 $('#search').click(function() {
-  
+
 })
 </script>
