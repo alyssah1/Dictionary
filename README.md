@@ -3,5 +3,8 @@
 # Created by Alyssa Hollowell, Jin Choo and Rex
 
 # About 
-First the user has to login using a username and password. Once the user is logged in they can search a vocabulary word which will display the definition. The user can keep track of the words they have searched for. 
+The user has the option to login using the username and password they set up already or the user can create a new username and password to login. Once the user is logged in they can search for a vocabulary word which will display the definition. 
+
+# Run
+To run the app locally, 
 

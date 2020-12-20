@@ -8,7 +8,7 @@ module.exports = function (sequelize, DataTypes) {
             }
         },
         synonyms: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
         },
     });
 
