@@ -6,7 +6,10 @@ module.exports = function (sequelize, DataTypes) {
             validate: {
                 len: [1, 140]
             }
-        }
+        },
+        synonyms: {
+            type: DataTypes.STRING,
+        },
     });
 
     Word.associate = function (models) {
