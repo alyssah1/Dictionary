@@ -10,6 +10,9 @@ module.exports = function (sequelize, DataTypes) {
         synonyms: {
             type: DataTypes.STRING,
         },
+        pronunciation: {
+            type: DataTypes.STRING
+        },
     });
 
     Word.associate = function (models) {
