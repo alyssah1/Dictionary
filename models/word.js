@@ -7,9 +7,6 @@ module.exports = function (sequelize, DataTypes) {
                 len: [1, 140]
             }
         },
-        synonyms: {
-            type: DataTypes.STRING,
-        },
         pronunciation: {
             type: DataTypes.STRING
         },

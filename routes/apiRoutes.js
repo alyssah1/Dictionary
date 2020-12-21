@@ -6,7 +6,9 @@ const API_KEY = process.env["API-KEY"];
 
 
 router.get('/api/search/:word', async (req, res) => {
+    
     const wordName = req.params.word;
+    console.log("wordName", wordName);
 
     //check if word has already been searched before
     let word = await db.Word.findOne({where: {name: wordName}, include:db.Definition});
