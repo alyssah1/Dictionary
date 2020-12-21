@@ -12,7 +12,7 @@
 
 
 <div class="input-group mb-3">
-  <input type="text" class="form-control" placeholder="Search for a Word" aria-label="Recipient's username" aria-describedby="button-addon2" style="margin-left:250px;height:50px;width:40%";>
+  <input id="search-input" type="text" class="form-control" placeholder="Search for a Word" aria-label="Recipient's username" aria-describedby="button-addon2" style="margin-left:250px;height:50px;width:40%";>
   <button class="btn btn-outline-secondary" type="button" id="search" style="margin-right:200px;width:10%";>Search</button>  
   </div>
 </div>
@@ -28,13 +28,21 @@ $('#logout').click(function() {
     $.ajax({
         url: '/api/logout',
         type:"POST",
-        //data: {action:action},
     }).then(function() {
-      console.log("LOGOUT SUCESS");
+      console.log("LOGOUT SUCCESS");
       window.location.replace('/');
     })
   })
 $('#search').click(function() {
-  
-})
+  console.log("I'm clicked");
+  const searchInput = $("#search-input");
+  console.log(searchInput.val());
+  $.ajax ("/api/search/" + searchInput.val(), { 
+    type: "GET",
+    }).then(function(word){
+      console.log("word",word);
+      //return res.json(word)
+    })
+  })
+
 </script>
