@@ -4,6 +4,7 @@ const db = require(path.join(__dirname, './models'));
 const exphbs = require("express-handlebars");
 const passport = require("./config/passport");
 const session = require("express-session");
+require("dotenv").config();
 
 const PORT = process.env.PORT || 8080;
 const app = express();

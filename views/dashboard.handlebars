@@ -6,43 +6,72 @@
 <br>
 <br>
 
-  <button type="button" class="btn btn-danger right" id="logout">Logout</button></div>
+<button type="button" class="btn btn-danger right" id="logout">Logout</button></div>
 <h1 style="text-align:center">Hello Member!</h1>
 <h1 style="text-align:center">What word do you want to look up?</h1>
 
 
 <div class="input-group mb-3">
-  <input id="search-input" type="text" class="form-control" placeholder="Search for a Word" aria-label="Recipient's username" aria-describedby="button-addon2" style="margin-left:250px;height:50px;width:40%";>
-  <button class="btn btn-outline-secondary" type="button" id="search" style="margin-right:200px;width:10%";>Search</button>  
+  <input id="search-input" type="text" class="form-control" placeholder="Search for a Word"
+    aria-label="Recipient's username" aria-describedby="button-addon2" style="margin-left:250px;height:50px;width:40%"
+    ;>
+  <button class="btn btn-outline-secondary" type="button" id="search" style="margin-right:200px;width:10%"
+    ;>Search</button>
+</div>
+</div>
+
+<div id="word-container">
+  <div class="card" style="text-align:center;margin:auto;width:50%;">
+    <h5 class="card-header">Example:</h5>
+    <div class="card-body">
+      <p class="card-text">a representative form or pattern</p>
+      <p class="card-text">ɪɡ'zæmpəl</p>
+      <p class="card-text">model</p>
+    </div>
   </div>
+
+
 </div>
 
 
 
 <script>
 
-  
-$('#logout').click(function() {
-  console.log("I'm clicked");
+
+  $('#logout').click(function () {
+    console.log("I'm clicked");
     var action = "logout";
     $.ajax({
-        url: '/api/logout',
-        type:"POST",
-    }).then(function() {
+      url: '/api/logout',
+      type: "POST",
+    }).then(function () {
       console.log("LOGOUT SUCCESS");
       window.location.replace('/');
     })
   })
-$('#search').click(function() {
-  console.log("I'm clicked");
-  const searchInput = $("#search-input");
-  console.log(searchInput.val());
-  $.ajax ("/api/search/" + searchInput.val(), { 
-    type: "GET",
-    }).then(function(word){
-      console.log("word",word);
+  $('#search').click(function () {
+    console.log("I'm clicked");
+    const searchInput = $("#search-input");
+    console.log(searchInput.val());
+    $.ajax("/api/search/" + searchInput.val(), {
+      type: "GET",
+    }).then(function (word) {
+      console.log("word", word);
+      let wordElement = $(`<div class="card" style="text-align:center;margin:auto;width:50%;">
+    <h5 class="card-header">${word.name}</h5>
+    <div class="card-body">
+      <p class="card-text">${word.Definitions[0].data.definition}</p>
+      <p class="card-text">${word.pronunciation}</p>
+      <p class="card-text">${word.synonyms}</p>
+    </div>
+  </div>`)
+  let wordContainer = $("#word-container")
+  wordContainer.empty();
+  wordContainer.append(wordElement);
       //return res.json(word)
     })
   })
+
+
 
 </script>
