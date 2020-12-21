@@ -29,7 +29,7 @@ router.get('/api/search/:word', async (req, res) => {
 
     axios.request(options).then(async function (response) {
         //stringify all definitions for this word.
-        word = await db.Word.create({name: wordName, Definitions: response.data.results.map(el => {return {data: el};})}, {include: db.Definition});
+        word = await db.Word.create({name: wordName, pronunciation:response.data.pronunciation.all, Definitions: response.data.results.map(el => {return {data: el};})}, {include: db.Definition});
         return res.json(word);
     }).catch(function (error) {
         console.error(error);
