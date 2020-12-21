@@ -18,7 +18,11 @@ Words API, Bootstrap, Passport, JQuery
 
 # Heroku link
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://immense-hollows-39774.herokuapp.com/login) 
+
 # Application screenshots
 
+![Project1page](/reference/Project1page.png)
+![Project2page](/reference/Project2page.png)
 
 
