@@ -2,7 +2,7 @@ const db = require("../models");
 const router = require('express').Router();
 const axios = require('axios');
 
-const API_KEY = process.env["API-KEY"];
+const API_KEY = process.env["APIKEY"];
 
 
 router.get('/api/search/:word', async (req, res) => {
@@ -17,7 +17,6 @@ router.get('/api/search/:word', async (req, res) => {
     if(word) {
         return res.json(word);
     }
-
     const options = {
         method: 'GET',
         url: 'https://wordsapiv1.p.rapidapi.com/words/' + wordName,
