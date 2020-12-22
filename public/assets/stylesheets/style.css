@@ -42,11 +42,3 @@ body,html {
 .sf-snow-anim {
   top: 110%
 }
-
-#logout {
-  position: absolute;
-  right: 0;
-  top: 90px;
-  width: 10%;
-  margin-right: 30px;
-}

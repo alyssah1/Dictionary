@@ -1,58 +1,140 @@
-<button type="button" class="btn btn-danger right mt-1" id="logout">Logout</button>
+<div style="height: 60px"></div>
 
-<div style="height: 100px"></div>
+<div class="d-flex flex-nowrap flex-row-reverse m-1">
+    <button type="button" class="btn btn-danger right m-1" id="logout">Logout</button>
+    <a type="button" class="btn btn-success m-1 text-white" onclick="let $savedWords = $('#savedWords');$savedWords.css('display')==='none'?$savedWords.show():$savedWords.hide(); refreshWordList();">Saved words</a>
+</div>
 
-<div>
-    <h1 style="text-align:center">Hello Member!</h1>
+<div class="text-center">
+    <h1 style="text-align:center">Hello!</h1>
     <h2 style="text-align:center">What word do you want to look up?</h2>
 </div>
 
 
 <div class="input-group my-3">
-    <input id="search-input" type="text" class="form-control" placeholder="Search for a Word"
-           aria-label="Recipient's username" aria-describedby="button-addon2" style="margin-left:250px;height:50px;width:40%">
-    <button class="btn btn-outline-secondary" type="button" id="search" style="margin-right:200px;width:10%">Search
+    <label for="search-input"></label><input id="search-input" type="text" class="form-control" placeholder="Search for a Word" style="margin-left:250px;height:50px;width:40%">
+    <button class="btn btn-outline-secondary ml-2" type="button" id="search" style="margin-right:200px;width:10%">Search
     </button>
 </div>
 
-<div id="word-container">
-    <div class="card" style="text-align:center;margin:auto;width:50%;">
-        <h5 class="card-header">Example:</h5>
-        <div class="card-body">
-            <p class="card-text">a representative form or pattern</p>
-            <p class="card-text">ɪɡ'zæmpəl</p>
-            <p class="card-text">model</p>
+<div id="word-container" style="font-family: SansSerif serif;">
+</div>
+
+<style>
+    #savedWords {
+        top: 0;
+        left:0;
+    }
+
+    #wordList a:hover {
+        color: gray;
+        cursor: pointer;
+    }
+</style>
+<div id="savedWords" class="w-25 bg-success vh-100 position-fixed shadow text-white p-3" style="display: none">
+    <h2>Saved Words<a class="btn btn-success float-right" onclick="$('#savedWords').hide();">close</a></h2>
+    <hr>
+    <ol id="wordList">
+
+    </ol>
+</div>
+
+<!--Toast-->
+<div class="d-flex justify-content-center align-items-center position-fixed w-100 h-25" style="bottom: 0; left: 0;">
+    <div class="toast bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="mr-auto">Message</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body text-white">
+            Success
         </div>
     </div>
 </div>
 
 
+
 <script>
+    $('.toast').toast();
+
+    function refreshWordList() {
+        let $wordList = $('#wordList');
+        $.ajax('/api/wordList/').then(res => {
+            $wordList.empty();
+            for(const word of res) {
+                $wordList.append($(`
+                    <li><a onclick="searchWord('${word.name}')">${word.name}</a><a class="float-right" onclick="removeWord('${word.name}')">x</a></li>
+                `))
+            }
+        })
+    }
+
+    function addWord(word) {
+        $.ajax('/api/add/' + word, {method: "POST"}).then(res => {
+            $('.toast').toast('show');
+            refreshWordList();
+        })
+    }
+
+    function removeWord(word){
+        $.ajax('/api/remove/' + word, {method: "POST"}).then(res => {
+            $('.toast').toast('show');
+            refreshWordList();
+        })
+    }
+
     $('#logout').click(function () {
         $.ajax({
             url: '/api/logout',
             type: "POST",
         }).then(function () {
             window.location.replace('/');
-        })
+        });
     });
 
-    $('#search').click(function () {
-        const searchInput = $("#search-input");
-        $.ajax("/api/search/" + searchInput.val(), {
+    function searchWord(word) {
+        $.ajax("/api/search/" + word, {
             type: "GET",
         }).then(function (word) {
-            let wordElement = $(`<div class="card" style="text-align:center;margin:auto;width:50%;">
-    <h5 class="card-header">${word.name}</h5>
-    <div class="card-body">
-      <p class="card-text">${word.Definitions[0].data.definition}</p>
-      <p class="card-text">${word.pronunciation}</p>
-      <p class="card-text">${word.synonyms}</p>
-    </div>
-  </div>`);
+            let wordElement = $(`
+                <div class="p-2 text-center">
+                    <h2 class="font-weight-bolder">${word.name} <button class="btn btn-success" onclick="addWord('${word.name}')">+</button></h2>
+                    <h6 class="text-muted">${word.pronunciation}</h6>
+                    <hr>
+                </div>
+                `);
+
+            for(const definition of word.Definitions) {
+                wordElement.append($(`
+                    <div class="card w-50 mx-auto text-left shadow my-2">
+                        <div class="card-body">
+                            <p class="card-text font-weight-bolder" style="font-size: 1.3em">${definition.data.definition}</p>
+                            <ul>
+                                ${definition.data.examples?definition.data.examples.map(el => `<li><p class="card-text text-muted">` + el + `</p></li>`).join(`
+                                `):""}
+                            </ul>
+                            <p><span class="font-italic">Synonyms: </span>${definition.data.synonyms?definition.data.synonyms.join(', '):"-"}</p>
+                        </div>
+                    </div>
+                `));
+            }
+
             let wordContainer = $("#word-container");
             wordContainer.empty();
             wordContainer.append(wordElement);
-        })
-    })
+        }).catch(err => {
+            let wordContainer = $("#word-container");
+            wordContainer.empty();
+            wordContainer.append($(`
+                <h2 class="text-center bg-light text-danger p-3">Sorry, we didn't find this word in our dictionary.</h2>
+            `));
+        });
+    }
+
+    $('#search').click(function () {
+        const searchInput = $("#search-input");
+        searchWord(searchInput.val());
+    });
 </script>
