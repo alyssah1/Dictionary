@@ -5,14 +5,13 @@ form.login {
 
 
 body,html {
-  background-image: url(/assets/img/ac030c_b4ab633f467c41078a0a97b1f2ed2682_mv2.gif),url(/assets/img/snowman.jpg);
+  background-image: url(/assets/img/ac030c_b4ab633f467c41078a0a97b1f2ed2682_mv2.gif), url(/assets/img/snowman.jpg);
   background-position: center top;
-  background-repeat: repeat-x, no-repeat;
+  background-repeat: repeat-x, repeat-y;
   background-size: 30%, cover;
   height: 100%;
-  margin-bottom: 50px,100%;
+  margin-bottom: 50px, 100%;
   font-family: neucha;
-  
 }
 
 @media screen and (max-width: 5%) {
