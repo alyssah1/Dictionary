@@ -1,4 +1,4 @@
-# Project-2
+# Dictionary
 
 # Created by Alyssa Hollowell, Jin Choo and Rex
 
